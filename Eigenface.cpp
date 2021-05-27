@@ -6,7 +6,7 @@ int judge(const Mat &src,const Mat* eigenVector, const Mat inputAvgVector[], int
     double err_min = -1;
     Mat srcFloat,srcFloatNormalized;
     src.convertTo(srcFloat,CV_64FC1,1,0);
-    dbg("\n");
+    // dbg("\n");
     for (size_t i = 0; i < m; i++)
     {
         const Mat &tmp = eigenVector[i];
@@ -15,7 +15,7 @@ int judge(const Mat &src,const Mat* eigenVector, const Mat inputAvgVector[], int
         double dis = cv::norm(srcFloatNormalized,srcHat,cv::NORM_L2SQR);
         if(err_min == -1 || dis < err_min)
         {
-            dbg("i=%zd,m=%d,err_min=%lf,dis=%lf\n",i,m,err_min,dis);
+            // dbg("i=%zd,m=%d,err_min=%lf,dis=%lf\n",i,m,err_min,dis);
             err_min =  dis;
             ret = i;
         }

@@ -5,8 +5,8 @@
 #define dbg(...)
 #endif
 /**
- * @param src 寰呴檷缁寸殑鐭╅樀锛岀敱鍒楀悜閲忕粍鎴愶紝蹇呴』鏄诞鐐规暟
- * @param threshold 榛樿0.95
- * @return 鍗忔柟宸煩闃电殑鐗瑰緛鍚戦噺鐭╅樀锛岃鍚戦噺
+ * @param src 待降维的矩阵，由列向量组成，必须是浮点数
+ * @param threshold 默认0.95
+ * @return 协方差矩阵的特征向量矩阵，行向量
  */
 cv::Mat PCAeigenVector(const cv::Mat & src, double threshold = 0.95);

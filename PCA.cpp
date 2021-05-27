@@ -5,14 +5,14 @@ cv::Mat PCAeigenVector(const cv::Mat &src, double threshold)
     cv::Mat eigenVector, eigenValue, covMatrix;
     if (src.rows <= src.cols)
     {
-        dbg("src.rows < src.cols\n");
+        // dbg("src.rows < src.cols\n");
         covMatrix = src * src.t();
         //这里计算出的特征向量就是行向量，特征值只有一列，并且特征值是降序保存的
         cv::eigen(covMatrix, eigenValue, eigenVector);
     }
     else
     {
-        dbg("src.rows > src.cols\n");
+        // dbg("src.rows > src.cols\n");
         covMatrix = src.t() * src;
         cv::eigen(covMatrix, eigenValue, eigenVector);
         //上面求出的特征向量是行向量，计算时要改成列向量，算完后再改成行向量
@@ -34,7 +34,7 @@ cv::Mat PCAeigenVector(const cv::Mat &src, double threshold)
         */
         // eigenVector = (src * eigenVector.t()).t();
     }
-    dbg("eigenVector has cal.\n");
+    // dbg("eigenVector has cal.\n");
     double sum = 0, nsum = 0;
     int k = 1;
     for (size_t i = 0; i < eigenValue.rows; i++)

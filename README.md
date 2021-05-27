@@ -6,6 +6,8 @@
 
 # 编译命令
 
+首先将`opencv\build\include\opencv2`文件夹拷贝到当前目录
+
 ## Release版
 进入`msvc x64`控制台，将`opencv_world452.lib`放在当前目录，执行
 ```shell

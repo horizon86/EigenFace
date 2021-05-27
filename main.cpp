@@ -25,7 +25,7 @@ int check(bool f)
 
 int main(int argc, char *argv[])
 {
-    dbg("start");
+    dbg("start\n");
 
     //args parse
     cv::CommandLineParser parse(argc, argv, keys);
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     char buf[255];
 
-    dbg("trainset start");
+    dbg("trainset start\n");
 
     for (size_t i = 1; i < n + 1; i++)
     { //在每个分类中选
@@ -73,7 +73,6 @@ int main(int argc, char *argv[])
                 trainSet[i - 1].push_back(buf);
                 // trainSet.push_back(buf);
                 trainSelMask[ran] = true;
-                dbg(buf);
                 j++;
             }
         }
@@ -85,7 +84,6 @@ int main(int argc, char *argv[])
                 sprintf(buf, "%ssubject%02zd.%s.bmp", pathPrev.c_str(), i, picPost[j].c_str());
                 testSet.push_back(buf);
                 labels.push_back(i);
-                dbg(buf);
             }
         }
     }
@@ -113,12 +111,12 @@ int main(int argc, char *argv[])
 
         for (auto &tpic : it)
         {
-            dbg("111");
+            // dbg("111");
             //循环读取该类的图像到内存中
             Mat tmp = imread(tpic, cv::IMREAD_GRAYSCALE);
 
             check(tmp.data != nullptr);
-            dbg(tpic.c_str());
+            dbg("%s\n",tpic.c_str());
             //序列化矩阵为列向量
             Mat colVector = tmp.reshape(0, tmp.rows * tmp.cols);
             //序列化结果保存在数组中
@@ -138,8 +136,9 @@ int main(int argc, char *argv[])
     {
         for (size_t j = 0; j < trainResult[i].rows; j++)
         {
-            Mat newFaceCol, newFace;
-            trainResult[i].row(j).convertTo(newFaceCol, CV_8U);
+            Mat newFaceCol, newFace, fetaureFace;
+            fetaureFace = trainResult[i].row(j).t() + avgVector[i];
+            fetaureFace.convertTo(newFaceCol, CV_8U);
             newFace = newFaceCol.reshape(0, 243);
             sprintf(buf, "./featureFace/%zd-%zd.jpg", i, j);
             imwrite(buf, newFace);
@@ -170,5 +169,6 @@ int main(int argc, char *argv[])
     delete[] colVectorsByClass;
     delete[] trainResult;
     delete[] src;
+    delete[] avgVector;
     return 0;
 }
